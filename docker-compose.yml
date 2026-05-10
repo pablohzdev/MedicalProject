@@ -1,0 +1,46 @@
+services:
+  db:
+    image: postgres:18-alpine
+    container_name: MedicalProject_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: password123
+      POSTGRES_DB: clinica_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./init-db:/docker-entrypoint-initdb.d
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U admin -d clinica_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build: ./backend
+    container_name: MedicalProject_api
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      - DATABASE_URL=postgresql://admin:password123@db:5432/clinica_db
+    volumes:
+      - ./backend:/app
+    restart: unless-stopped
+
+  web:
+    image: nginx:1.30.0-alpine
+    container_name: MedicalProject_web
+    ports:
+      - "3000:80"
+    volumes:
+      - ./frontend:/usr/share/nginx/html
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
