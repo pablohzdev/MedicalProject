@@ -1,0 +1,42 @@
+# =========================
+# PYTHON Y FASTAPI
+# =========================
+# Ignorar los entornos virtuales (si alguien decide no usar Docker localmente)
+venv/
+.venv/
+env/
+
+# Archivos compilados y caché de Python (evita conflictos entre computadoras)
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# =========================
+# VARIABLES DE ENTORNO Y SECRETOS
+# =========================
+# JAMÁS subir contraseñas ni variables de entorno a GitHub
+.env
+.env.local
+.env.*
+
+# =========================
+# EDITORES DE CÓDIGO Y SISTEMAS OPERATIVOS
+# =========================
+# Configuraciones de VS Code (para que no se sobreescriban entre el equipo)
+.vscode/
+
+# Archivos basura de Mac y Windows
+.DS_Store
+Thumbs.db
+
+# =========================
+# DOCKER Y BASE DE DATOS
+# =========================
+# Si alguien exporta un respaldo local pesado por error, esto evita que se suba
+*.bak
+*.dump
+*.tar
+*.gz
+
+# Nota: NO ignoramos los .sql porque los de la carpeta /init-db SÍ se deben subir.
