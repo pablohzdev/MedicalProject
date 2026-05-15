@@ -79,10 +79,10 @@ curl http://localhost:8000/docs   # Debe responder con HTML de Swagger
 | Campo | Valor |
 |---|---|
 | Host | `localhost` |
-| Puerto | `5432` |
+| Puerto | `5433` |
 | Usuario | `admin` |
 | Contraseña | `password123` |
-| Base de datos | `clinica_db` |
+| Base de datos | `postgres` |
 
 ---
 
