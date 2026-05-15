@@ -56,6 +56,8 @@ INSERT INTO consultas (id, paciente_id, medico_id, fecha, motivo_consulta, diagn
 -- =============================================
 -- INSERCIÓN DE TRATAMIENTOS (38 registros)
 -- =============================================
+ALTER TABLE tratamientos DISABLE TRIGGER tr_analizar_tratamiento;
+
 INSERT INTO tratamientos (id, consulta_id, medicamento, dosis, duracion_dias, motivo_tratamiento, fecha_registro) VALUES
 -- === CASO TRIGGER - Juan Pérez (Paracetamol) ===
 (1, 1, 'Paracetamol', '500mg cada 8 horas', 5, 'Control de fiebre y dolor', '2026-04-01 09:35:00'),
@@ -104,3 +106,12 @@ INSERT INTO tratamientos (id, consulta_id, medicamento, dosis, duracion_dias, mo
 (36, 18, 'Amlodipino', '5mg diaria', 30, 'Hipertensión', '2026-04-25 09:36:00'),
 (37, 23, 'Crema de hidrocortisona', 'Aplicar 2 veces al día', 10, 'Dermatitis', '2026-05-12 11:21:00'),
 (38, 24, 'Fenazopiridina', '200mg cada 8 horas', 3, 'Alivio de síntomas urinarios', '2026-04-18 09:26:00');
+
+ALTER TABLE tratamientos ENABLE TRIGGER tr_analizar_tratamiento;
+
+
+-- Sincronizar secuencias para que el siguiente ID sea correcto
+SELECT setval('consultas_id_seq', (SELECT MAX(id) FROM consultas));
+SELECT setval('tratamientos_id_seq', (SELECT MAX(id) FROM tratamientos));
+SELECT setval('pacientes_id_seq', (SELECT MAX(id) FROM pacientes));
+SELECT setval('medicos_id_seq', (SELECT MAX(id) FROM medicos));
