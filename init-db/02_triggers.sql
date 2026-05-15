@@ -25,16 +25,13 @@ RETURNS TRIGGER AS $$
 DECLARE
     v_paciente_id INT;
     v_conteo INT;
-    v_dias_ventana INT := 60; -- Límite de tiempo: últimos 60 días
-    v_limite_veces INT := 3;  -- Umbral: alerta a partir de la 3ra vez
+    v_dias_ventana INT := 60;
+    v_limite_veces INT := 3;
 BEGIN
-    -- 1. Obtenemos el ID del paciente a partir del consulta_id del tratamiento
     SELECT paciente_id INTO v_paciente_id 
     FROM consultas 
     WHERE id = NEW.consulta_id;
 
-    -- 2. Contamos cuántas veces se le ha recetado este MISMO medicamento 
-    -- a este paciente en la ventana de tiempo definida (60 días).
     SELECT COUNT(*) INTO v_conteo
     FROM tratamientos t
     JOIN consultas c ON t.consulta_id = c.id
@@ -42,18 +39,11 @@ BEGIN
       AND t.medicamento = NEW.medicamento
       AND c.fecha >= (CURRENT_DATE - (v_dias_ventana || ' days')::interval);
 
-    -- 3. Si el conteo (incluyendo la inserción actual) llega a 3 (o más), 
-    -- disparamos la alerta silenciosa.
     IF v_conteo >= v_limite_veces THEN
-        INSERT INTO alertas_log (paciente_id, consulta_id, mensaje)
-        VALUES (
-            v_paciente_id, 
-            NEW.consulta_id, 
-            '⚠️ ALERTA CLINICA: El paciente ha recibido [' || NEW.medicamento || '] ' || v_conteo || ' veces en los últimos ' || v_dias_ventana || ' días. Evaluar efectividad o posible resistencia.'
-        );
+        RAISE EXCEPTION '⚠️ ALERTA CLÍNICA: El paciente ha recibido [%] % veces en los últimos % días. Evaluar efectividad o posible resistencia.',
+            NEW.medicamento, v_conteo, v_dias_ventana;
     END IF;
 
-    -- Dejamos que el tratamiento se guarde normalmente
     RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
