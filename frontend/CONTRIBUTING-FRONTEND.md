@@ -26,11 +26,23 @@
 ```
 proyecto-db/
 └── frontend/
-    ├── index.html        # Pantalla de login
-    ├── dashboard.html    # Lista de pacientes
-    ├── historial.html    # Historial y nueva consulta
-    ├── api.js            # Funciones fetch (no escribas fetch en otro lado)
-    └── websocket.js      # Lógica de WebSocket y reconexión
+    ├── public/               # Archivos estáticos que no cambian
+    │   ├── css/
+    │   │   └── styles.css
+    │   └── assets/           # Imágenes, iconos, logos
+    ├── src/
+    │   ├── views/            # Todos tus HTML aquí
+    │   │   ├── index.html
+    │   │   ├── dashboard.html
+    │   │   └── historial.html
+    │   └── js/               # Lógica dividida por función
+    │       ├── services/     # Comunicación con el exterior
+    │       │   ├── api.js        # Solo peticiones Fetch
+    │       │   └── websocket.js  # Solo flujo de datos en tiempo real
+    │       ├── components/   # Lógica reutilizable (modales, tablas)
+    │       │   └── alerts.js
+    │       └── main.js       # Orquestador o punto de entrada
+    └── index.html            # (Opcional) Un punto de acceso principal
 ```
 
 No toques archivos fuera de `frontend/` sin coordinarlo con el Equipo 1.
