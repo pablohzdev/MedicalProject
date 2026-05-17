@@ -50,6 +50,6 @@ $$ LANGUAGE plpgsql;
 
 -- El trigger evalúa CADA tratamiento nuevo que se intente guardar
 CREATE TRIGGER tr_analizar_tratamiento
-AFTER INSERT ON tratamientos
+BEFORE INSERT ON tratamientos  -- ✅ evalúa antes de insertar
 FOR EACH ROW
 EXECUTE FUNCTION fn_evaluar_tratamiento();
