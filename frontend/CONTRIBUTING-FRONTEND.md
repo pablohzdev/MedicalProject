@@ -24,25 +24,26 @@
 ## 1. Tus archivos
 
 ```
+
 proyecto-db/
 └── frontend/
-    ├── public/               # Archivos estáticos que no cambian
-    │   ├── css/
-    │   │   └── styles.css
-    │   └── assets/           # Imágenes, iconos, logos
     ├── src/
     │   ├── views/            # Todos tus HTML aquí
-    │   │   ├── index.html
-    │   │   ├── dashboard.html
-    │   │   └── historial.html
+    │   │   └── altapaciente.html
+    │   │   ├── consulta.html
+    │   │   ├── historial.html
+    │   │   ├── login.html
+    │   │   ├── navbar.html
     │   └── js/               # Lógica dividida por función
     │       ├── services/     # Comunicación con el exterior
     │       │   ├── api.js        # Solo peticiones Fetch
     │       │   └── websocket.js  # Solo flujo de datos en tiempo real
-    │       ├── components/   # Lógica reutilizable (modales, tablas)
-    │       │   └── alerts.js
-    │       └── main.js       # Orquestador o punto de entrada
-    └── index.html            # (Opcional) Un punto de acceso principal
+    │       └── components/   # Lógica reutilizable (modales, tablas)
+    │           └── alerts.js
+    │           └── navbar.js
+    ├── CONTRIBUTING.md         # Documentación para contribuir al proyecto
+    ├── index.html              # Punto de acceso principal
+    └── tailwind.config.js      # Estilos para el diseño
 ```
 
 No toques archivos fuera de `frontend/` sin coordinarlo con el Equipo 1.
