@@ -8,10 +8,10 @@ services:
       POSTGRES_PASSWORD: password123
       POSTGRES_DB: clinica_db
     ports:
-      - "5432:5432"
+      - "5433:5432"  # era 5432:5432
     volumes:
       - ./init-db:/docker-entrypoint-initdb.d
-      - postgres_data:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql  # ← antes era /var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U admin -d clinica_db"]
       interval: 10s
@@ -40,6 +40,7 @@ services:
       - "3000:80"
     volumes:
       - ./frontend:/usr/share/nginx/html
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
     restart: unless-stopped
 
 volumes:

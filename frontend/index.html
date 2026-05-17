@@ -1,12 +1,279 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Alertas Médicas</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lumina Health — Panel de Pacientes</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    body { font-family: "Inter", sans-serif; }
+  </style>
 </head>
-<body>
-    <h1>Frontend Conectado</h1>
-    <p>El servidor Nginx está funcionando correctamente en el puerto 3000.</p>
+
+<body class="bg-slate-50 text-slate-800">
+  <main class="flex flex-col h-screen overflow-hidden">
+
+    <header class="bg-white border-b border-slate-200 px-8 py-4 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
+          <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+          </svg>
+        </div>
+        <span class="text-lg font-bold text-slate-900">Lumina Health</span>
+        <span class="text-slate-300">·</span>
+        <span class="text-slate-400 text-sm">Panel de Pacientes</span>
+      </div>
+
+      <div class="flex items-center space-x-6">
+        <div id="ws-status" class="flex items-center space-x-2 bg-green-50 text-green-600 px-3 py-1.5 rounded-full text-xs font-semibold">
+          <span id="ws-dot" class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+          <span id="ws-label">En línea</span>
+        </div>
+
+        <div class="flex items-center space-x-3">
+          <div class="w-9 h-9 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold text-sm" id="medico-avatar">
+            —
+          </div>
+          <div>
+            <p class="text-sm font-semibold text-slate-800" id="medico-nombre">Dr. Carlos Mendoza</p>
+            <p class="text-xs text-slate-500">Médico activo</p>
+          </div>
+        </div>
+
+        <button onclick="cerrarSesion()"
+          class="flex items-center text-red-500 font-medium hover:text-red-600 transition-colors text-sm">
+          <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+          </svg>
+          Cerrar sesión
+        </button>
+      </div>
+    </header>
+
+    <section class="flex-1 overflow-y-auto p-8">
+
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
+        <div>
+          <h2 class="text-3xl font-bold text-slate-900">Panel de Gestión de Pacientes</h2>
+          <p class="text-slate-500 mt-1">Supervise y gestione los expedientes médicos en tiempo real.</p>
+        </div>
+      </div>
+
+      <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200 flex flex-col lg:flex-row items-center gap-4 mb-6">
+        <div class="relative flex-1 w-full">
+          <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+          </span>
+          <input id="buscador" type="text"
+            class="block w-full pl-10 pr-3 py-2 border border-slate-200 rounded-lg focus:ring-blue-500 focus:border-blue-500 text-sm"
+            placeholder="Buscar paciente por nombre..." />
+        </div>
+        
+        <button onclick="window.location.href='/src/views/altapaciente.html'" 
+          class="w-full lg:w-auto bg-emerald-600 text-white px-5 py-2.5 rounded-lg text-sm font-semibold hover:bg-emerald-700 transition-colors flex items-center justify-center shadow-sm">
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+          </svg>
+          Registrar Nuevo Paciente
+        </button>
+      </div>
+
+      <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+        <table class="min-w-full divide-y divide-slate-200 text-left">
+          <thead class="bg-slate-50">
+            <tr>
+              <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">ID</th>
+              <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Paciente</th>
+              <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Fecha de Nacimiento</th>
+              <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Género</th>
+              <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Grupo Sanguíneo</th>
+              <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider text-right">Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="tabla-pacientes" class="divide-y divide-slate-100 bg-white">
+            <tr id="fila-cargando">
+              <td colspan="6" class="px-6 py-12 text-center text-slate-400">
+                <svg class="w-8 h-8 mx-auto mb-3 animate-spin text-blue-500" fill="none" viewBox="0 0 24 24">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                  <path class="opacity-75" fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+                </svg>
+                Cargando pacientes...
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <footer class="bg-slate-50 px-6 py-4 flex items-center justify-between border-t border-slate-100">
+          <div class="text-sm text-slate-500">
+            Mostrando <span id="count-mostrados" class="font-semibold text-slate-900">0</span> de
+            <span id="count-total" class="font-semibold text-slate-900">0</span> pacientes
+          </div>
+        </footer>
+      </div>
+    </section>
+  </main>
+
+  <div id="modal-alerta" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+    <div class="bg-white border-2 border-red-500 rounded-xl p-6 max-w-md w-full shadow-2xl mx-4">
+      <div class="flex items-center gap-3 mb-4">
+        <span class="text-3xl">⚠️</span>
+        <h2 class="text-red-600 font-bold text-lg">Alerta Médica</h2>
+      </div>
+      <p id="modal-alerta-texto" class="text-gray-800 mb-6"></p>
+      <button onclick="cerrarAlerta()"
+        class="w-full bg-red-600 text-white font-semibold py-2 rounded-lg hover:bg-red-700 transition">
+        Entendido
+      </button>
+    </div>
+  </div>
+
+  <script src="/src/js/services/api.js"></script>
+  <script src="/src/js/services/websocket.js"></script>
+  <script src="/src/js/components/alerts.js"></script>
+  
+  <script>
+    // ── Configuración de médicos (coordinado con el Equipo 1) ──
+    const MEDICOS = [
+      { id: 1, nombre: 'Dr. Carlos Mendoza',   especialidad: 'Medicina General' },
+    ];
+
+    // ── Proteger página ──
+    const medicoId = localStorage.getItem('medicoId');
+    if (!medicoId) {
+      window.location.href = '/src/views/login.html';
+    }
+
+    // ── Mostrar médico activo en el header ──
+    const medico = "Dr. Carlos Mendoza"
+
+    // ── Cerrar sesión ──
+    function cerrarSesion() {
+      localStorage.clear();
+      window.location.href = '/src/views/login.html';
+    }
+
+    // ── Modal de alerta ──
+    function mostrarAlertaMedica(mensaje) {
+      document.getElementById('modal-alerta-texto').textContent = mensaje;
+      document.getElementById('modal-alerta').classList.remove('hidden');
+    }
+
+    function cerrarAlerta() {
+      document.getElementById('modal-alerta').classList.add('hidden');
+    }
+
+    // ── Obtener iniciales para avatar ──
+    function obtenerIniciales(nombre) {
+      return nombre.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase();
+    }
+
+    // ── Colores de avatar por inicial ──
+    const COLORES = ['bg-blue-600','bg-indigo-600','bg-violet-600','bg-teal-600','bg-emerald-600','bg-rose-600'];
+    function colorAvatar(nombre) {
+      return COLORES[nombre.charCodeAt(0) % COLORES.length];
+    }
+
+    // ── Renderizar tabla ──
+    let todosLosPacientes = [];
+
+    function renderizarTabla(pacientes) {
+      const tbody = document.getElementById('tabla-pacientes');
+      document.getElementById('count-mostrados').textContent = pacientes.length;
+      document.getElementById('count-total').textContent = todosLosPacientes.length;
+
+      if (pacientes.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="6" class="px-6 py-12 text-center text-slate-400">
+              No se encontraron pacientes.
+            </td>
+          </tr>`;
+        return;
+      }
+
+      tbody.innerHTML = pacientes.map(p => `
+        <tr class="hover:bg-slate-50 transition-colors cursor-pointer">
+          <td class="px-6 py-4 text-sm font-medium text-slate-400">#PA-${String(p.id).padStart(4,'0')}</td>
+          <td class="px-6 py-4">
+            <div class="flex items-center">
+              <div class="h-10 w-10 flex-shrink-0 ${colorAvatar(p.nombre)} rounded-full flex items-center justify-center text-white font-bold text-xs">
+                ${obtenerIniciales(p.nombre)}
+              </div>
+              <div class="ml-4">
+                <div class="text-sm font-semibold text-slate-900">${p.nombre}</div>
+                <div class="text-xs text-slate-500">${p.antecedentes ?? 'Sin antecedentes'}</div>
+              </div>
+            </div>
+          </td>
+          <td class="px-6 py-4 text-sm text-slate-600">${p.fecha_nacimiento ?? '—'}</td>
+          <td class="px-6 py-4 text-sm text-slate-600">${p.genero ?? '—'}</td>
+          <td class="px-6 py-4">
+            <span class="bg-slate-100 text-slate-700 px-2 py-1 rounded text-xs font-semibold">${p.grupo_sanguineo ?? '—'}</span>
+          </td>
+          <td class="px-6 py-4">
+            <div class="flex items-center justify-end space-x-3">
+              
+              <button onclick="window.location.href='/src/views/consulta.html?pacienteId=${p.id}'"
+                class="bg-emerald-100 text-emerald-700 px-3 py-1.5 rounded-lg text-sm font-medium hover:bg-emerald-200 inline-flex items-center transition-colors">
+                <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+                </svg>
+                Registrar Cita
+              </button>
+
+              <button onclick="window.location.href='/src/views/historial.html?pacienteId=${p.id}'"
+                class="bg-blue-600 text-white px-4 py-1.5 rounded-lg text-sm font-medium hover:bg-blue-700 inline-flex items-center group transition-colors">
+                Ver Historial
+                <svg class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+              </button>
+            </div>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    // ── Cargar pacientes ──
+    async function cargarPacientes(filtro = '') {
+      try {
+        todosLosPacientes = await fetchData('/pacientes');
+        const filtrados = todosLosPacientes.filter(p =>
+          p.nombre.toLowerCase().includes(filtro.toLowerCase())
+        );
+        renderizarTabla(filtrados);
+      } catch (error) {
+        console.error('Error cargando pacientes:', error);
+        document.getElementById('tabla-pacientes').innerHTML = `
+          <tr>
+            <td colspan="6" class="px-6 py-12 text-center text-red-400">
+              Error al cargar los pacientes. Verifica que la API esté corriendo.
+            </td>
+          </tr>`;
+      }
+    }
+
+    // ── Buscador ──
+    document.getElementById('buscador').addEventListener('input', e => {
+      cargarPacientes(e.target.value);
+    });
+
+    // ── WebSocket — actualizar tabla automáticamente ──
+    iniciarWebSocket(() => {
+      const filtroActual = document.getElementById('buscador').value;
+      cargarPacientes(filtroActual);
+    });
+
+    // ── Carga inicial ──
+    cargarPacientes();
+  </script>
 </body>
 </html>
