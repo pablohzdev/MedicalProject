@@ -1,263 +1,370 @@
 <!DOCTYPE html>
-
-<html class="light" lang="es"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Lumina Health - Añadir Consulta</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
-      tailwind.config = {
-        darkMode: "class",
-        theme: {
-          extend: {
-            "colors": {
-                    "on-error-container": "#93000a",
-                    "on-secondary-container": "#00217a",
-                    "surface-container-high": "#dce9ff",
-                    "primary": "#004ac6",
-                    "secondary": "#3755c3",
-                    "on-primary-fixed-variant": "#003ea8",
-                    "surface-variant": "#d3e4fe",
-                    "tertiary-container": "#bc4800",
-                    "surface-tint": "#0053db",
-                    "tertiary": "#943700",
-                    "surface-dim": "#cbdbf5",
-                    "surface-container-low": "#eff4ff",
-                    "on-secondary": "#ffffff",
-                    "primary-container": "#2563eb",
-                    "on-surface": "#0b1c30",
-                    "on-primary-fixed": "#00174b",
-                    "inverse-surface": "#213145",
-                    "background": "#f8f9ff",
-                    "on-tertiary-fixed": "#360f00",
-                    "inverse-on-surface": "#eaf1ff",
-                    "inverse-primary": "#b4c5ff",
-                    "surface-container-highest": "#d3e4fe",
-                    "on-secondary-fixed": "#001453",
-                    "on-surface-variant": "#434655",
-                    "secondary-fixed": "#dde1ff",
-                    "on-primary": "#ffffff",
-                    "tertiary-fixed": "#ffdbcd",
-                    "on-tertiary": "#ffffff",
-                    "on-secondary-fixed-variant": "#173bab",
-                    "on-error": "#ffffff",
-                    "surface": "#f8f9ff",
-                    "secondary-fixed-dim": "#b8c4ff",
-                    "secondary-container": "#708cfd",
-                    "outline": "#737686",
-                    "on-background": "#0b1c30",
-                    "error": "#ba1a1a",
-                    "tertiary-fixed-dim": "#ffb596",
-                    "primary-fixed": "#dbe1ff",
-                    "on-tertiary-fixed-variant": "#7d2d00",
-                    "outline-variant": "#c3c6d7",
-                    "primary-fixed-dim": "#b4c5ff",
-                    "on-primary-container": "#eeefff",
-                    "surface-bright": "#f8f9ff",
-                    "error-container": "#ffdad6",
-                    "surface-container-lowest": "#ffffff",
-                    "surface-container": "#e5eeff",
-                    "on-tertiary-container": "#ffede6"
-            },
-            "borderRadius": {
-                    "DEFAULT": "0.25rem",
-                    "lg": "0.5rem",
-                    "xl": "0.75rem",
-                    "full": "9999px"
-            },
-            "spacing": {
-                    "xxl": "48px",
-                    "md": "16px",
-                    "gutter": "24px",
-                    "container-max": "1280px",
-                    "xl": "32px",
-                    "xs": "4px",
-                    "unit": "4px",
-                    "sm": "8px",
-                    "lg": "24px"
-            },
-            "fontFamily": {
-                    "headline-lg": ["Inter"],
-                    "body-md": ["Inter"],
-                    "data-mono": ["JetBrains Mono"],
-                    "display": ["Inter"],
-                    "body-lg": ["Inter"],
-                    "label-md": ["Inter"],
-                    "headline-md": ["Inter"],
-                    "body-sm": ["Inter"]
-            },
-            "fontSize": {
-                    "headline-lg": ["28px", {"lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
-                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
-                    "data-mono": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
-                    "display": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
-                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
-                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
-                    "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
-                    "body-sm": ["12px", {"lineHeight": "16px", "fontWeight": "400"}]
-            }
-          },
-        },
-      }
-    </script>
-<style>
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-        }
-        body {
-            background-color: #f8f9ff;
-            color: #0b1c30;
-        }
+<html class="light" lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Lumina Health - Añadir Consulta</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="/tailwind.config.js"></script>
+    <script>tailwind.config = tailwindConfig;</script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+    <style>
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
     </style>
+    <script src="/src/js/components/navbar.js"></script>
 </head>
-<body class="font-body-md text-body-md overflow-x-hidden">
-<!-- TopNavBar Shell -->
-<header class="fixed top-0 left-0 right-0 z-50 bg-surface border-b border-outline-variant">
-<div class="flex justify-between items-center w-full px-lg py-sm max-w-container-max mx-auto h-16">
-<div class="flex items-center gap-sm">
-<span class="text-headline-md font-headline-lg font-extrabold text-primary">Lumina Health</span>
-</div>
-<div class="flex items-center gap-md">
-<div class="flex items-center gap-sm">
-<button class="material-symbols-outlined p-2 rounded-full hover:bg-surface-container-high transition-colors text-on-surface-variant">notifications</button>
-<button class="material-symbols-outlined p-2 rounded-full hover:bg-surface-container-high transition-colors text-on-surface-variant">account_circle</button>
-</div>
-<button class="font-label-md text-label-md text-primary font-bold px-md py-xs rounded hover:bg-surface-container-high transition-colors">Logout</button>
-</div>
-</div>
-</header>
-<div class="flex pt-16 min-h-screen">
-<!-- Main Content Area -->
-<main class="flex-1 bg-background p-lg">
-<div class="max-w-4xl mx-auto space-y-lg">
-<!-- Patient Header Anchor -->
-<nav class="flex items-center gap-xs text-body-sm font-body-sm text-on-surface-variant mb-md">
-<a class="hover:text-primary transition-colors" href="#">Pacientes</a>
-<span class="material-symbols-outlined text-[16px]">chevron_right</span>
-<span class="text-on-surface font-bold">Añadir Consulta</span>
-</nav>
-<div class="bg-surface-container-lowest border border-outline-variant p-lg rounded-xl flex justify-between items-center shadow-sm">
-<div class="flex items-center gap-md">
-<div class="w-12 h-12 rounded-full bg-primary-fixed flex items-center justify-center text-primary">
-<span class="material-symbols-outlined text-[28px]">person</span>
-</div>
-<div>
-<h1 class="font-headline-md text-headline-md text-on-surface">Alejandro Mendoza</h1>
-<p class="font-data-mono text-data-mono text-on-surface-variant">#PA-8821</p>
-</div>
-</div>
-<div class="text-right">
-<span class="bg-secondary-fixed text-on-secondary-fixed px-sm py-xs rounded-full text-label-md font-label-md uppercase tracking-wider">INTERNADO</span>
-<p class="text-body-sm font-body-sm text-on-surface-variant mt-xs">Habitación 402 • Pabellón B</p>
-</div>
-</div>
-<!-- Registration Form -->
-<form class="space-y-lg">
-<!-- Section: Consultation Details -->
-<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden shadow-sm">
-<div class="bg-surface-container px-lg py-md border-b border-outline-variant">
-<h2 class="font-label-md text-label-md text-on-surface-variant uppercase font-bold tracking-widest">DETALLES DE LA CONSULTA</h2>
-</div>
-<div class="p-lg grid grid-cols-1 md:grid-cols-2 gap-lg">
-<div class="space-y-xs">
-<label class="font-label-md text-label-md text-on-surface-variant block">Fecha de visita</label>
-<div class="relative">
-<input class="w-full bg-white border border-outline-variant rounded-lg px-md py-sm focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all" type="date" value="2023-11-24"/>
-</div>
-</div>
-<div class="space-y-xs">
-<label class="font-label-md text-label-md text-on-surface-variant block">Tipo de consulta</label>
-<select class="w-full bg-white border border-outline-variant rounded-lg px-md py-sm focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all appearance-none">
-<option>General</option>
-<option>Seguimiento</option>
-<option>Especialista</option>
-</select>
-</div>
-</div>
-</div>
-<!-- Section: Clinical Assessment -->
-<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden shadow-sm">
-<div class="bg-surface-container px-lg py-md border-b border-outline-variant">
-<h2 class="font-label-md text-label-md text-on-surface-variant uppercase font-bold tracking-widest">EVALUACIÓN CLÍNICA</h2>
-</div>
-<div class="p-lg space-y-lg">
-<div class="space-y-xs">
-<label class="font-label-md text-label-md text-on-surface-variant block">Motivo de la consulta</label>
-<textarea class="w-full bg-white border border-outline-variant rounded-lg px-md py-sm focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all" placeholder="Describa el motivo principal de la consulta..." rows="2"></textarea>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-lg">
-<div class="space-y-xs">
-<label class="font-label-md text-label-md text-on-surface-variant block">Síntomas</label>
-<textarea class="w-full bg-white border border-outline-variant rounded-lg px-md py-sm focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all" placeholder="Lista de síntomas observados o reportados..." rows="4"></textarea>
-</div>
-<div class="space-y-xs">
-<label class="font-label-md text-label-md text-on-surface-variant block">Examen físico</label>
-<textarea class="w-full bg-white border border-outline-variant rounded-lg px-md py-sm focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all" placeholder="Registrar hallazgos del examen físico..." rows="4"></textarea>
-</div>
-</div>
-</div>
-</div>
-<!-- Section: Diagnosis & Plan -->
-<div class="grid grid-cols-1 md:grid-cols-3 gap-lg">
-<div class="md:col-span-1 bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden shadow-sm h-full">
-<div class="bg-surface-container px-lg py-md border-b border-outline-variant">
-<h2 class="font-label-md text-label-md text-on-surface-variant uppercase font-bold tracking-widest">DIAGNÓSTICO</h2>
-</div>
-<div class="p-lg space-y-md">
-<div class="space-y-xs">
-<label class="font-label-md text-label-md text-on-surface-variant block">CIE-10 o Diagnóstico Clínico</label>
-<input class="w-full bg-white border border-outline-variant rounded-lg px-md py-sm focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all font-data-mono" placeholder="ej. J06.9" type="text"/>
-<p class="text-body-sm font-body-sm text-outline mt-sm italic leading-tight">Buscar codificación estándar o ingresar diagnóstico descriptivo.</p>
-</div>
-</div>
-</div>
-<div class="md:col-span-2 bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden shadow-sm">
-<div class="bg-surface-container px-lg py-md border-b border-outline-variant">
-<h2 class="font-label-md text-label-md text-on-surface-variant uppercase font-bold tracking-widest">PLAN DE TRATAMIENTO</h2>
-</div>
-<div class="p-lg space-y-lg">
-<div class="space-y-xs">
-<label class="font-label-md text-label-md text-on-surface-variant block">Prescripciones / Medicamentos</label>
-<textarea class="w-full bg-white border border-outline-variant rounded-lg px-md py-sm focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all" placeholder="Dosis, frecuencia y duración..." rows="3"></textarea>
-</div>
-<div class="space-y-xs">
-<label class="font-label-md text-label-md text-on-surface-variant block">Recomendaciones adicionales</label>
-<textarea class="w-full bg-white border border-outline-variant rounded-lg px-md py-sm focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all" placeholder="Consejos sobre estilo de vida, instrucciones de seguimiento..." rows="2"></textarea>
-</div>
-</div>
-</div>
-</div>
-<!-- Section: Attachments -->
-<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden shadow-sm">
-<div class="bg-surface-container px-lg py-md border-b border-outline-variant">
-<h2 class="font-label-md text-label-md text-on-surface-variant uppercase font-bold tracking-widest">ADJUNTOS</h2>
-</div>
-<div class="p-lg">
-<div class="border-2 border-dashed border-outline-variant rounded-xl p-xl flex flex-col items-center justify-center gap-md hover:bg-surface-container-low transition-colors cursor-pointer group">
-<div class="w-12 h-12 rounded-full bg-surface-variant flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
-<span class="material-symbols-outlined">upload_file</span>
-</div>
-<div class="text-center">
-<p class="font-body-md text-body-md text-on-surface font-bold">Añadir informes médicos o imágenes</p>
-<p class="text-body-sm font-body-sm text-on-surface-variant">Arrastre archivos aquí o haga clic para seleccionar</p>
-</div>
-</div>
-</div>
-</div>
-<!-- Form Actions -->
-<div class="flex items-center justify-end gap-md pt-md pb-xxl">
-<button class="px-xl py-md font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-colors" type="button">
-                            Cancelar
+
+<body class="bg-background font-body-md text-body-md overflow-x-hidden">
+
+    <header class="bg-surface sticky top-0 border-b border-outline-variant z-50">
+        <div id="navbar-container"></div>
+    </header>
+
+    <main class="flex-1 bg-background p-lg">
+        <div class="max-w-4xl mx-auto space-y-lg">
+
+            <!-- Patient header -->
+            <div class="bg-surface-container-lowest border border-outline-variant p-lg rounded-xl flex justify-between items-center shadow-sm">
+                <div class="flex items-center gap-md">
+                    <div class="w-12 h-12 rounded-full bg-primary-fixed flex items-center justify-center text-primary">
+                        <span class="material-symbols-outlined text-[28px]">person</span>
+                    </div>
+                    <div>
+                        <h1 id="paciente-nombre" class="font-headline-md text-headline-md text-on-surface">—</h1>
+                        <p id="paciente-id" class="font-data-mono text-data-mono text-on-surface-variant">—</p>
+                    </div>
+                </div>
+            </div>
+
+            <form id="form-consulta" class="space-y-lg">
+
+                <!-- ── CONSULTA ── -->
+                <div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden shadow-sm">
+                    <div class="bg-surface-container px-lg py-md border-b border-outline-variant">
+                        <h2 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest">Detalles de la Consulta</h2>
+                    </div>
+                    <div class="p-lg grid grid-cols-1 gap-lg">
+
+                        <!-- fecha → consultas.fecha -->
+                        <div class="space-y-xs md:w-1/2">
+                            <label class="font-label-md text-label-md text-on-surface-variant block" for="fecha">
+                                Fecha y hora
+                            </label>
+                            <input
+                                id="fecha" name="fecha" type="datetime-local"
+                                class="w-full bg-white border border-outline-variant rounded-lg px-md py-sm focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all font-data-mono"
+                            />
+                        </div>
+
+                        <!-- medico_id estático -->
+                        <input type="hidden" name="medico_id" value="1" />
+
+                        <!-- motivo_consulta → consultas.motivo_consulta (NOT NULL) -->
+                        <div class="space-y-xs md:col-span-2">
+                            <label class="font-label-md text-label-md text-on-surface-variant block" for="motivo_consulta">
+                                Motivo de la consulta <span class="text-error">*</span>
+                            </label>
+                            <textarea
+                                id="motivo_consulta" name="motivo_consulta" required rows="3"
+                                placeholder="Describa el motivo principal de la consulta..."
+                                class="w-full bg-white border border-outline-variant rounded-lg px-md py-sm focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all"
+                            ></textarea>
+                        </div>
+
+                        <!-- diagnostico → consultas.diagnostico (NOT NULL) -->
+                        <div class="space-y-xs md:col-span-2">
+                            <label class="font-label-md text-label-md text-on-surface-variant block" for="diagnostico">
+                                Diagnóstico <span class="text-error">*</span>
+                            </label>
+                            <textarea
+                                id="diagnostico" name="diagnostico" required rows="3"
+                                placeholder="Diagnóstico clínico o código CIE-10..."
+                                class="w-full bg-white border border-outline-variant rounded-lg px-md py-sm focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all"
+                            ></textarea>
+                            <p class="text-body-sm text-outline italic">Puede ingresar código CIE-10 (ej. J06.9) o diagnóstico descriptivo.</p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- ── TRATAMIENTOS ── -->
+                <div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden shadow-sm">
+                    <div class="bg-surface-container px-lg py-md border-b border-outline-variant flex items-center justify-between">
+                        <h2 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest">Tratamientos</h2>
+                        <button
+                            type="button" id="btn-add-tratamiento"
+                            class="flex items-center gap-xs px-md py-xs bg-primary text-on-primary font-label-md rounded-lg hover:opacity-90 transition-all active:scale-95"
+                        >
+                            <span class="material-symbols-outlined text-[18px]">add</span>
+                            Agregar medicamento
                         </button>
-<button class="px-xl py-md bg-primary text-on-primary font-label-md text-label-md rounded-lg shadow-md hover:bg-primary-container transition-all active:scale-95 flex items-center gap-sm" type="submit">
-<span class="material-symbols-outlined text-[20px]">save</span>
-                            Guardar Consulta
-                        </button>
-</div>
-</form>
-</div>
-</main>
-</div>
-</body></html>
+                    </div>
+
+                    <div id="tratamientos-list" class="p-lg space-y-lg"></div>
+                </div>
+
+                <!-- Form Actions -->
+                <div class="flex items-center justify-end gap-md pt-md pb-xxl">
+                    <button
+                        type="button"
+                        class="px-xl py-md font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-colors"
+                    >
+                        Cancelar
+                    </button>
+                    <button
+                        type="submit"
+                        class="px-xl py-md bg-primary text-on-primary font-label-md text-label-md rounded-lg shadow-md hover:opacity-90 transition-all active:scale-95 flex items-center gap-sm"
+                    >
+                        <span class="material-symbols-outlined text-[20px]">save</span>
+                        Guardar Consulta
+                    </button>
+                </div>
+
+            </form>
+        </div>
+    </main>
+
+    <script>
+        const INPUT_CLS = 'w-full bg-white border border-outline-variant rounded-lg px-md py-sm focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all';
+        const LABEL_CLS = 'font-label-md text-label-md text-on-surface-variant block';
+
+        function reindex() {
+            document.querySelectorAll('.tratamiento-item').forEach((item, i) => {
+                item.querySelector('.item-label').textContent = `Medicamento ${i + 1}`;
+                item.querySelectorAll('[data-field]').forEach(el => {
+                    el.name = `tratamientos[${i}][${el.dataset.field}]`;
+                });
+            });
+            const items = document.querySelectorAll('.tratamiento-item');
+            items.forEach(item => {
+                item.querySelector('.btn-remove').classList.toggle('hidden', items.length === 1);
+            });
+        }
+
+        function crearItem() {
+            const div = document.createElement('div');
+            div.className = 'tratamiento-item border border-outline-variant rounded-xl p-lg space-y-md bg-surface-container-low';
+            div.innerHTML = `
+                <div class="flex items-center justify-between mb-xs">
+                    <p class="item-label font-label-md text-on-surface-variant uppercase tracking-widest text-label-md"></p>
+                    <button type="button" class="btn-remove text-error hover:opacity-80 transition-all">
+                        <span class="material-symbols-outlined text-[20px]">delete</span>
+                    </button>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-md">
+                    <div class="space-y-xs md:col-span-2">
+                        <label class="${LABEL_CLS}">Nombre del fármaco <span class="text-error">*</span></label>
+                        <select type="text" data-field="medicamento" required placeholder="ej. Amoxicilina" class="${INPUT_CLS}">
+                            <option value="" disabled selected>Seleccione un medicamento</option>
+                            <option value="Amlodipino">Amlodipino</option>
+                            <option value="Amoxicilina">Amoxicilina</option>
+                            <option value="Amoxicilina + Clavulánico">Amoxicilina + Clavulánico</option>
+                            <option value="Azitromicina">Azitromicina</option>
+                            <option value="Colchicina">Colchicina</option>
+                            <option value="Crema de hidrocortisona">Crema de hidrocortisona</option>
+                            <option value="Desloratadina">Desloratadina</option>
+                            <option value="Diclofenaco">Diclofenaco</option>
+                            <option value="Fenazopiridina">Fenazopiridina</option>
+                            <option value="Gotas óticas">Gotas óticas</option>
+                            <option value="Hierro">Hierro</option>
+                            <option value="Hioscina">Hioscina</option>
+                            <option value="Ibuprofeno">Ibuprofeno</option>
+                            <option value="Ketorolaco">Ketorolaco</option>
+                            <option value="Loratadina">Loratadina</option>
+                            <option value="Losartán">Losartán</option>
+                            <option value="Metformina">Metformina</option>
+                            <option value="Mucolítico">Mucolítico</option>
+                            <option value="Multivitamínico">Multivitamínico</option>
+                            <option value="Nitrofurantoína">Nitrofurantoína</option>
+                            <option value="Omeprazol">Omeprazol</option>
+                            <option value="Paracetamol">Paracetamol</option>
+                            <option value="Relajante muscular">Relajante muscular</option>
+                            <option value="Vitamina D">Vitamina D</option>
+                        </select>
+                    </div>
+                    <div class="space-y-xs">
+                        <label class="${LABEL_CLS}">Dosis <span class="text-error">*</span></label>
+                        <input type="text" data-field="dosis" required placeholder="ej. 500mg cada 8h" class="${INPUT_CLS}" />
+                    </div>
+                    <div class="space-y-xs">
+                        <label class="${LABEL_CLS}">Duración (días) <span class="text-error">*</span></label>
+                        <input type="number" data-field="duracion_dias" required min="1" placeholder="ej. 7" class="${INPUT_CLS} font-data-mono" />
+                    </div>
+                    <div class="space-y-xs md:col-span-2">
+                        <label class="${LABEL_CLS}">Motivo del tratamiento</label>
+                        <textarea data-field="motivo_tratamiento" rows="2" placeholder="¿Por qué se receta este medicamento específico?" class="${INPUT_CLS}"></textarea>
+                    </div>
+                </div>
+            `;
+            div.querySelector('.btn-remove').addEventListener('click', () => {
+                div.remove();
+                reindex();
+            });
+            return div;
+        }
+
+        // Inicializar con el primer item
+        const list = document.getElementById('tratamientos-list');
+        list.innerHTML = '';
+        list.appendChild(crearItem());
+        reindex();
+
+        document.getElementById('btn-add-tratamiento').addEventListener('click', () => {
+            list.appendChild(crearItem());
+            reindex();
+        });
+
+        // Fecha actual por defecto
+        const now = new Date();
+        now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+        document.getElementById('fecha').value = now.toISOString().slice(0, 16);
+    </script>
+
+    <script src="/src/js/services/api.js"></script>
+
+    <!-- Modal de Alerta Médica -->
+    <div id="modal-alerta" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+        <div class="bg-white border-2 border-error rounded-xl p-lg max-w-md w-full shadow-2xl mx-4">
+            <div class="flex items-center gap-md mb-md">
+                <span class="text-3xl">⚠️</span>
+                <h2 class="text-error font-bold text-headline-md">Alerta Médica</h2>
+            </div>
+            <p id="modal-alerta-texto" class="text-on-surface mb-lg"></p>
+            <div class="flex gap-md">
+                <button onclick="cerrarAlerta()" 
+                    class="flex-1 bg-surface-container text-on-surface font-semibold py-sm rounded-lg hover:bg-surface-container-high transition">
+                    Cancelar
+                </button>
+                <button onclick="aceptarDeTodosModos()" 
+                    class="flex-1 bg-error text-on-error font-semibold py-sm rounded-lg hover:opacity-90 transition">
+                    Aceptar de todos modos
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let payloadPendiente = null;
+
+        function mostrarAlertaMedica(mensaje) {
+            document.getElementById('modal-alerta-texto').textContent = mensaje;
+            document.getElementById('modal-alerta').classList.remove('hidden');
+        }
+
+        function cerrarAlerta() {
+            document.getElementById('modal-alerta').classList.add('hidden');
+            payloadPendiente = null;
+        }
+
+        async function aceptarDeTodosModos() {
+            document.getElementById('modal-alerta').classList.add('hidden');
+            
+            if (payloadPendiente) {
+                try {
+                    // Reintentar con force: true
+                    const response = await fetch(`${API_URL}/tratamientos`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ ...payloadPendiente, force: true }),
+                    });
+
+                    const result = await response.json();
+
+                    if (response.ok) {
+                        alert('✅ Consulta registrada exitosamente');
+                        window.location.href = `/src/views/historial.html?pacienteId=${payloadPendiente.paciente_id}`;
+                    } else {
+                        throw new Error(result.detail || 'Error desconocido');
+                    }
+                } catch (error) {
+                    console.error('Error al forzar guardado:', error);
+                    alert('Error al registrar la consulta');
+                }
+                payloadPendiente = null;
+            }
+        }
+    </script>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const pacienteId = params.get('pacienteId');
+
+        if (!pacienteId) {
+            alert('No se especificó un paciente');
+            window.location.href = '/src/views/pacientes.html';
+        }
+
+        // Cargar datos del paciente
+        async function cargarPaciente() {
+            try {
+                const p = await fetchData(`/pacientes/${pacienteId}`);
+                document.title = `Registrar Consulta | ${p.nombre}`;
+                document.getElementById('paciente-nombre').textContent = p.nombre;
+                document.getElementById('paciente-id').textContent = `#PA-${String(p.id).padStart(4, '0')}`;
+            } catch (e) {
+                console.error('Error cargando paciente:', e);
+                alert('Error al cargar los datos del paciente');
+            }
+        }
+
+        // Submit del formulario
+        document.getElementById('form-consulta').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            // Recolectar datos de la consulta
+            const motivo = document.querySelector('[name="motivo_consulta"]').value;
+            const diagnostico = document.querySelector('[name="diagnostico"]').value;
+
+            // Recolectar tratamientos
+            const tratamientos = [];
+            document.querySelectorAll('.tratamiento-item').forEach(item => {
+                const medicamento = item.querySelector('[data-field="medicamento"]').value;
+                const dosis = item.querySelector('[data-field="dosis"]').value;
+                const duracion_dias = parseInt(item.querySelector('[data-field="duracion_dias"]').value);
+                const motivo_tratamiento = item.querySelector('[data-field="motivo_tratamiento"]').value || null;
+
+                tratamientos.push({ medicamento, dosis, duracion_dias, motivo_tratamiento });
+            });
+
+            const payload = {
+                paciente_id: parseInt(pacienteId),
+                medico_id: 1,
+                motivo_consulta: motivo,
+                diagnostico: diagnostico,
+                tratamientos: tratamientos
+            };
+
+            try {
+                const response = await fetch(`${API_URL}/tratamientos`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload),
+                });
+
+                const result = await response.json();
+
+                if (response.status === 400) {
+                    // Guardar payload para posible reintento
+                    payloadPendiente = payload;
+                    mostrarAlertaMedica(result.detail);
+                    return;
+                }
+
+                if (response.ok) {
+                    alert('✅ Consulta registrada exitosamente');
+                    window.location.href = `/src/views/historial.html?pacienteId=${pacienteId}`;
+                } else {
+                    throw new Error(result.detail || 'Error desconocido');
+                }
+            } catch (error) {
+                console.error('Error al guardar:', error);
+                alert('Error al registrar la consulta');
+            }
+        });
+
+        cargarPaciente();
+    </script>
+
+</body>
+</html>
