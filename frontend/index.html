@@ -1,254 +1,279 @@
-<!DOCTYPE html>
-
-<html lang="es"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Lumina Health - Patient Management Dashboard</title>
-<!-- Tailwind CSS CDN with Plugins -->
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<!-- Google Fonts: Inter for professional UI look -->
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
-<style data-purpose="typography">
-    body {
-      font-family: 'Inter', sans-serif;
-    }
-  </style>
-<style data-purpose="layout">
-    .main-grid {
-      display: grid;
-      grid-template-columns: 260px 1fr;
-      min-height: 100vh;
-    }
-    .sidebar-active {
-      background-color: #f0f7ff;
-      color: #1e40af;
-      border-right: 4px solid #3b82f6;
-    }
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lumina Health — Panel de Pacientes</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    body { font-family: "Inter", sans-serif; }
   </style>
 </head>
+
 <body class="bg-slate-50 text-slate-800">
-<!-- BEGIN: MainContainer -->
-<div class="main-grid">
-<!-- BEGIN: SideNavBar -->
-<aside class="bg-white border-r border-slate-200 flex flex-col" data-purpose="sidebar-navigation">
-<div class="p-6">
-<h1 class="text-xl font-bold text-blue-800 tracking-tight">Lumina Health</h1>
-</div>
-<nav class="flex-1 mt-4">
-<ul class="space-y-1">
-<li>
-<a class="sidebar-active flex items-center px-6 py-3 font-semibold transition-colors" href="#">
-<svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
-              Pacientes
-            </a>
-</li>
-</ul>
-</nav>
-<!-- User Profile at bottom of sidebar -->
-<div class="p-6 border-t border-slate-100" data-purpose="user-profile-mini">
-<div class="flex items-center space-x-3">
-<img alt="Dr. Richardson" class="w-10 h-10 rounded-full object-cover border border-slate-200" id="user-avatar-sidebar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAkLS_BoRTb3-2WlR3yVkFZAOUmnoPXeORDW6Cdl0P00lx5cYBRm7Wws4Nd0nQpPGY0hOjFB3JfWpFhgsatvLs9JpCe9B8611LjRrmKXU3SP7ObQs4-LXmBpCZVZuLaG_uFVGzX8Npq_J7fuMcfeb3c_PV_v3tnsgckTW2FmoQyhQI52eHyHg8w_Ly2deWB3bvVnAXj3hTiTs9woeCyYeGvKcpDsuKEuw4PYTD5hq2D3ti9D4PKOp7XPGmBKTEVm_tOiWdMVjIkfuM"/>
-<div class="overflow-hidden">
-<p class="text-sm font-semibold text-slate-800 truncate">Dr. Richardson</p>
-<p class="text-xs text-slate-500 truncate">Internal Medicine</p>
-</div>
-</div>
-</div>
-</aside>
-<!-- END: SideNavBar -->
-<!-- BEGIN: MainContent -->
-<main class="flex flex-col h-screen overflow-hidden">
-<!-- BEGIN: TopHeader -->
-<header class="bg-white border-b border-slate-200 px-8 py-4 flex items-center justify-between">
-<div class="flex items-center space-x-4">
-<span class="text-slate-400 text-sm">Dashboard / Pacientes</span>
-</div>
-<div class="flex items-center space-x-6">
-<div class="flex items-center space-x-2">
-<button class="p-2 text-slate-400 hover:text-slate-600">
-<svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
-</button>
-<button class="p-2 text-slate-400 hover:text-slate-600">
-<svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
-</button>
-</div>
-<button class="flex items-center text-red-500 font-medium hover:text-red-600 transition-colors" type="button" onclick="window.location.href='logim.html'">
-<svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
-            Logout
-          </button>
-</div>
-</header>
-<!-- END: TopHeader -->
-<!-- BEGIN: ContentArea -->
-<section class="flex-1 overflow-y-auto p-8">
-<!-- Header Actions Section -->
-<div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
-<div>
-<h2 class="text-3xl font-bold text-slate-900">Panel de Gestión de Pacientes</h2>
-<p class="text-slate-500 mt-1">Supervise y gestione los expedientes médicos en tiempo real.</p>
-</div>
-<div class="bg-blue-50 text-blue-600 px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider flex items-center">
-<span class="w-2 h-2 bg-blue-500 rounded-full mr-2 animate-pulse"></span>
-            Datos Sincronizados
+  <main class="flex flex-col h-screen overflow-hidden">
+
+    <header class="bg-white border-b border-slate-200 px-8 py-4 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
+          <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+          </svg>
+        </div>
+        <span class="text-lg font-bold text-slate-900">Lumina Health</span>
+        <span class="text-slate-300">·</span>
+        <span class="text-slate-400 text-sm">Panel de Pacientes</span>
+      </div>
+
+      <div class="flex items-center space-x-6">
+        <div id="ws-status" class="flex items-center space-x-2 bg-green-50 text-green-600 px-3 py-1.5 rounded-full text-xs font-semibold">
+          <span id="ws-dot" class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+          <span id="ws-label">En línea</span>
+        </div>
+
+        <div class="flex items-center space-x-3">
+          <div class="w-9 h-9 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold text-sm" id="medico-avatar">
+            —
           </div>
-</div>
-<!-- Toolbar Section -->
-<div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200 flex flex-col lg:flex-row items-center gap-4 mb-6" data-purpose="table-toolbar">
-<div class="relative flex-1 w-full">
-<span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400">
-<svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
-</span>
-<input class="block w-full pl-10 pr-3 py-2 border border-slate-200 rounded-lg focus:ring-blue-500 focus:border-blue-500 text-sm" placeholder="Buscar paciente por nombre o ID..." type="text"/>
-</div>
-<div class="flex items-center gap-3 w-full lg:w-auto">
-<button class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-semibold text-sm transition-all shadow-md flex-1 lg:flex-none" type="button" onclick="window.location.href='altapaciente.html'">
-              Alta paciente
-            </button>
-<button class="flex items-center justify-center px-4 py-2 border border-slate-200 rounded-lg text-sm font-medium text-slate-600 hover:bg-slate-50">
-<svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
-              Filtrar
-            </button>
-<button class="flex items-center justify-center px-4 py-2 border border-slate-200 rounded-lg text-sm font-medium text-slate-600 hover:bg-slate-50">
-<svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
-              Exportar
-            </button>
-</div>
-</div>
-<!-- Table Container -->
-<div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden" data-purpose="patients-table-container">
-<table class="min-w-full divide-y divide-slate-200 text-left">
-<thead class="bg-slate-50">
-<tr>
-<th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider" scope="col">ID</th>
-<th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider" scope="col">Paciente</th>
-<th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider" scope="col">Última Visita</th>
-<th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider" scope="col">Diagnóstico</th>
-<th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider" scope="col">Estado</th>
-<th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider text-right" scope="col">Acciones</th>
-</tr>
-</thead>
-<tbody class="divide-y divide-slate-100 bg-white">
-<!-- Patient Row 1 -->
-<tr class="hover:bg-slate-50 transition-colors">
-<td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-400">#PA-8821</td>
-<td class="px-6 py-4 whitespace-nowrap">
-<div class="flex items-center">
-<div class="h-10 w-10 flex-shrink-0 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold text-xs">AM</div>
-<div class="ml-4">
-<div class="text-sm font-semibold text-slate-900">Alejandro Mendoza</div>
-<div class="text-xs text-slate-500">45 años • Masculino</div>
-</div>
-</div>
-</td>
-<td class="px-6 py-4 whitespace-nowrap text-sm text-slate-600">12 Oct 2023</td>
-<td class="px-6 py-4 whitespace-nowrap text-sm text-slate-600">Hipertensión Arterial</td>
-<td class="px-6 py-4 whitespace-nowrap">
-<button class="text-red-500 text-xs font-semibold hover:underline italic" type="button" onclick="window.location.href='consulta.html'">Añadir consulta</button>
-</td>
-<td class="px-6 py-4 whitespace-nowrap text-right text-sm">
-<button class="bg-blue-600 text-white px-4 py-1.5 rounded-lg text-sm font-medium hover:bg-blue-700 inline-flex items-center group" type="button" onclick="window.location.href='historial.html'">
-                    Ver Historial
-                    <svg class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
-</button>
-</td>
-</tr>
-<!-- Patient Row 2 -->
-<tr class="hover:bg-slate-50 transition-colors">
-<td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-400">#PA-7642</td>
-<td class="px-6 py-4 whitespace-nowrap">
-<div class="flex items-center">
-<div class="h-10 w-10 flex-shrink-0 bg-orange-200 rounded-full flex items-center justify-center text-orange-700 font-bold text-xs">EL</div>
-<div class="ml-4">
-<div class="text-sm font-semibold text-slate-900">Elena Ledesma</div>
-<div class="text-xs text-slate-500">32 años • Femenino</div>
-</div>
-</div>
-</td>
-<td class="px-6 py-4 whitespace-nowrap text-sm text-slate-600">Hoy, 09:15</td>
-<td class="px-6 py-4 whitespace-nowrap text-sm text-slate-600">Control Post-operatorio</td>
-<td class="px-6 py-4 whitespace-nowrap">
-<button class="text-red-500 text-xs font-semibold hover:underline italic" type="button" onclick="window.location.href='consulta.html'">Añadir consulta</button>
-</td>
-<td class="px-6 py-4 whitespace-nowrap text-right text-sm">
-<button class="bg-blue-600 text-white px-4 py-1.5 rounded-lg text-sm font-medium hover:bg-blue-700 inline-flex items-center group" type="button" onclick="window.location.href='historial.html'">
-                    Ver Historial
-                    <svg class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
-</button>
-</td>
-</tr>
-<!-- Patient Row 3 -->
-<tr class="hover:bg-slate-50 transition-colors">
-<td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-400">#PA-9011</td>
-<td class="px-6 py-4 whitespace-nowrap">
-<div class="flex items-center">
-<div class="h-10 w-10 flex-shrink-0 bg-blue-100 rounded-full flex items-center justify-center text-blue-700 font-bold text-xs">RC</div>
-<div class="ml-4">
-<div class="text-sm font-semibold text-slate-900">Ricardo Castillo</div>
-<div class="text-xs text-slate-500">58 años • Masculino</div>
-</div>
-</div>
-</td>
-<td class="px-6 py-4 whitespace-nowrap text-sm text-slate-600">08 Oct 2023</td>
-<td class="px-6 py-4 whitespace-nowrap text-sm text-slate-600">Diabetes Tipo 2</td>
-<td class="px-6 py-4 whitespace-nowrap">
-<button class="text-red-500 text-xs font-semibold hover:underline italic" type="button" onclick="window.location.href='consulta.html'">Añadir consulta</button>
-</td>
-<td class="px-6 py-4 whitespace-nowrap text-right text-sm">
-<button class="bg-blue-600 text-white px-4 py-1.5 rounded-lg text-sm font-medium hover:bg-blue-700 inline-flex items-center group" type="button" onclick="window.location.href='historial.html'">
-                    Ver Historial
-                    <svg class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
-</button>
-</td>
-</tr>
-<!-- Patient Row 4 -->
-<tr class="hover:bg-slate-50 transition-colors">
-<td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-400">#PA-4423</td>
-<td class="px-6 py-4 whitespace-nowrap">
-<div class="flex items-center">
-<div class="h-10 w-10 flex-shrink-0 bg-teal-100 rounded-full flex items-center justify-center text-teal-700 font-bold text-xs">SG</div>
-<div class="ml-4">
-<div class="text-sm font-semibold text-slate-900">Sofía Gutiérrez</div>
-<div class="text-xs text-slate-500">24 años • Femenino</div>
-</div>
-</div>
-</td>
-<td class="px-6 py-4 whitespace-nowrap text-sm text-slate-600">05 Oct 2023</td>
-<td class="px-6 py-4 whitespace-nowrap text-sm text-slate-600">Migraña Crónica</td>
-<td class="px-6 py-4 whitespace-nowrap">
-<button class="text-red-500 text-xs font-semibold hover:underline italic" type="button" onclick="window.location.href='consulta.html'">Añadir consulta</button>
-</td>
-<td class="px-6 py-4 whitespace-nowrap text-right text-sm">
-<button class="bg-blue-600 text-white px-4 py-1.5 rounded-lg text-sm font-medium hover:bg-blue-700 inline-flex items-center group "type="button" onclick="window.location.href='historial.html'">
-                    Ver Historial
-                    <svg class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
-</button>
-</td>
-</tr>
-</tbody>
-</table>
-<!-- BEGIN: PaginationFooter -->
-<footer class="bg-slate-50 px-6 py-4 flex items-center justify-between border-t border-slate-100" data-purpose="table-pagination">
-<div class="text-sm text-slate-500">
-              Mostrando <span class="font-semibold text-slate-900">4</span> de <span class="font-semibold text-slate-900">128</span> pacientes
+          <div>
+            <p class="text-sm font-semibold text-slate-800" id="medico-nombre">Dr. Carlos Mendoza</p>
+            <p class="text-xs text-slate-500">Médico activo</p>
+          </div>
+        </div>
+
+        <button onclick="cerrarSesion()"
+          class="flex items-center text-red-500 font-medium hover:text-red-600 transition-colors text-sm">
+          <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+          </svg>
+          Cerrar sesión
+        </button>
+      </div>
+    </header>
+
+    <section class="flex-1 overflow-y-auto p-8">
+
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
+        <div>
+          <h2 class="text-3xl font-bold text-slate-900">Panel de Gestión de Pacientes</h2>
+          <p class="text-slate-500 mt-1">Supervise y gestione los expedientes médicos en tiempo real.</p>
+        </div>
+      </div>
+
+      <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200 flex flex-col lg:flex-row items-center gap-4 mb-6">
+        <div class="relative flex-1 w-full">
+          <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+          </span>
+          <input id="buscador" type="text"
+            class="block w-full pl-10 pr-3 py-2 border border-slate-200 rounded-lg focus:ring-blue-500 focus:border-blue-500 text-sm"
+            placeholder="Buscar paciente por nombre..." />
+        </div>
+        
+        <button onclick="window.location.href='/src/views/altapaciente.html'" 
+          class="w-full lg:w-auto bg-emerald-600 text-white px-5 py-2.5 rounded-lg text-sm font-semibold hover:bg-emerald-700 transition-colors flex items-center justify-center shadow-sm">
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+          </svg>
+          Registrar Nuevo Paciente
+        </button>
+      </div>
+
+      <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+        <table class="min-w-full divide-y divide-slate-200 text-left">
+          <thead class="bg-slate-50">
+            <tr>
+              <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">ID</th>
+              <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Paciente</th>
+              <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Fecha de Nacimiento</th>
+              <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Género</th>
+              <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Grupo Sanguíneo</th>
+              <th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider text-right">Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="tabla-pacientes" class="divide-y divide-slate-100 bg-white">
+            <tr id="fila-cargando">
+              <td colspan="6" class="px-6 py-12 text-center text-slate-400">
+                <svg class="w-8 h-8 mx-auto mb-3 animate-spin text-blue-500" fill="none" viewBox="0 0 24 24">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                  <path class="opacity-75" fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+                </svg>
+                Cargando pacientes...
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <footer class="bg-slate-50 px-6 py-4 flex items-center justify-between border-t border-slate-100">
+          <div class="text-sm text-slate-500">
+            Mostrando <span id="count-mostrados" class="font-semibold text-slate-900">0</span> de
+            <span id="count-total" class="font-semibold text-slate-900">0</span> pacientes
+          </div>
+        </footer>
+      </div>
+    </section>
+  </main>
+
+  <div id="modal-alerta" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+    <div class="bg-white border-2 border-red-500 rounded-xl p-6 max-w-md w-full shadow-2xl mx-4">
+      <div class="flex items-center gap-3 mb-4">
+        <span class="text-3xl">⚠️</span>
+        <h2 class="text-red-600 font-bold text-lg">Alerta Médica</h2>
+      </div>
+      <p id="modal-alerta-texto" class="text-gray-800 mb-6"></p>
+      <button onclick="cerrarAlerta()"
+        class="w-full bg-red-600 text-white font-semibold py-2 rounded-lg hover:bg-red-700 transition">
+        Entendido
+      </button>
+    </div>
+  </div>
+
+  <script src="/src/js/services/api.js"></script>
+  <script src="/src/js/services/websocket.js"></script>
+  <script src="/src/js/components/alerts.js"></script>
+  
+  <script>
+    // ── Configuración de médicos (coordinado con el Equipo 1) ──
+    const MEDICOS = [
+      { id: 1, nombre: 'Dr. Carlos Mendoza',   especialidad: 'Medicina General' },
+    ];
+
+    // ── Proteger página ──
+    const medicoId = localStorage.getItem('medicoId');
+    if (!medicoId) {
+      window.location.href = '/src/views/login.html';
+    }
+
+    // ── Mostrar médico activo en el header ──
+    const medico = "Dr. Carlos Mendoza"
+
+    // ── Cerrar sesión ──
+    function cerrarSesion() {
+      localStorage.clear();
+      window.location.href = '/src/views/login.html';
+    }
+
+    // ── Modal de alerta ──
+    function mostrarAlertaMedica(mensaje) {
+      document.getElementById('modal-alerta-texto').textContent = mensaje;
+      document.getElementById('modal-alerta').classList.remove('hidden');
+    }
+
+    function cerrarAlerta() {
+      document.getElementById('modal-alerta').classList.add('hidden');
+    }
+
+    // ── Obtener iniciales para avatar ──
+    function obtenerIniciales(nombre) {
+      return nombre.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase();
+    }
+
+    // ── Colores de avatar por inicial ──
+    const COLORES = ['bg-blue-600','bg-indigo-600','bg-violet-600','bg-teal-600','bg-emerald-600','bg-rose-600'];
+    function colorAvatar(nombre) {
+      return COLORES[nombre.charCodeAt(0) % COLORES.length];
+    }
+
+    // ── Renderizar tabla ──
+    let todosLosPacientes = [];
+
+    function renderizarTabla(pacientes) {
+      const tbody = document.getElementById('tabla-pacientes');
+      document.getElementById('count-mostrados').textContent = pacientes.length;
+      document.getElementById('count-total').textContent = todosLosPacientes.length;
+
+      if (pacientes.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="6" class="px-6 py-12 text-center text-slate-400">
+              No se encontraron pacientes.
+            </td>
+          </tr>`;
+        return;
+      }
+
+      tbody.innerHTML = pacientes.map(p => `
+        <tr class="hover:bg-slate-50 transition-colors cursor-pointer">
+          <td class="px-6 py-4 text-sm font-medium text-slate-400">#PA-${String(p.id).padStart(4,'0')}</td>
+          <td class="px-6 py-4">
+            <div class="flex items-center">
+              <div class="h-10 w-10 flex-shrink-0 ${colorAvatar(p.nombre)} rounded-full flex items-center justify-center text-white font-bold text-xs">
+                ${obtenerIniciales(p.nombre)}
+              </div>
+              <div class="ml-4">
+                <div class="text-sm font-semibold text-slate-900">${p.nombre}</div>
+                <div class="text-xs text-slate-500">${p.antecedentes ?? 'Sin antecedentes'}</div>
+              </div>
             </div>
-<div class="flex items-center space-x-2">
-<button class="p-2 border border-slate-200 rounded-md bg-white hover:bg-slate-50 text-slate-400 disabled:opacity-50" disabled="">
-<svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M15 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
-</button>
-<button class="w-8 h-8 flex items-center justify-center bg-blue-600 text-white rounded-md text-sm font-bold">1</button>
-<button class="w-8 h-8 flex items-center justify-center bg-white border border-slate-200 text-slate-600 hover:bg-slate-50 rounded-md text-sm font-medium transition-colors">2</button>
-<button class="w-8 h-8 flex items-center justify-center bg-white border border-slate-200 text-slate-600 hover:bg-slate-50 rounded-md text-sm font-medium transition-colors">3</button>
-<button class="p-2 border border-slate-200 rounded-md bg-white hover:bg-slate-50 text-slate-600">
-<svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
-</button>
-</div>
-</footer>
-<!-- END: PaginationFooter -->
-</div>
-</section>
-<!-- END: ContentArea -->
-</main>
-<!-- END: MainContent -->
-</div>
-<!-- END: MainContainer -->
-</body></html>
+          </td>
+          <td class="px-6 py-4 text-sm text-slate-600">${p.fecha_nacimiento ?? '—'}</td>
+          <td class="px-6 py-4 text-sm text-slate-600">${p.genero ?? '—'}</td>
+          <td class="px-6 py-4">
+            <span class="bg-slate-100 text-slate-700 px-2 py-1 rounded text-xs font-semibold">${p.grupo_sanguineo ?? '—'}</span>
+          </td>
+          <td class="px-6 py-4">
+            <div class="flex items-center justify-end space-x-3">
+              
+              <button onclick="window.location.href='/src/views/consulta.html?pacienteId=${p.id}'"
+                class="bg-emerald-100 text-emerald-700 px-3 py-1.5 rounded-lg text-sm font-medium hover:bg-emerald-200 inline-flex items-center transition-colors">
+                <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+                </svg>
+                Registrar Cita
+              </button>
+
+              <button onclick="window.location.href='/src/views/historial.html?pacienteId=${p.id}'"
+                class="bg-blue-600 text-white px-4 py-1.5 rounded-lg text-sm font-medium hover:bg-blue-700 inline-flex items-center group transition-colors">
+                Ver Historial
+                <svg class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+              </button>
+            </div>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    // ── Cargar pacientes ──
+    async function cargarPacientes(filtro = '') {
+      try {
+        todosLosPacientes = await fetchData('/pacientes');
+        const filtrados = todosLosPacientes.filter(p =>
+          p.nombre.toLowerCase().includes(filtro.toLowerCase())
+        );
+        renderizarTabla(filtrados);
+      } catch (error) {
+        console.error('Error cargando pacientes:', error);
+        document.getElementById('tabla-pacientes').innerHTML = `
+          <tr>
+            <td colspan="6" class="px-6 py-12 text-center text-red-400">
+              Error al cargar los pacientes. Verifica que la API esté corriendo.
+            </td>
+          </tr>`;
+      }
+    }
+
+    // ── Buscador ──
+    document.getElementById('buscador').addEventListener('input', e => {
+      cargarPacientes(e.target.value);
+    });
+
+    // ── WebSocket — actualizar tabla automáticamente ──
+    iniciarWebSocket(() => {
+      const filtroActual = document.getElementById('buscador').value;
+      cargarPacientes(filtroActual);
+    });
+
+    // ── Carga inicial ──
+    cargarPacientes();
+  </script>
+</body>
+</html>
